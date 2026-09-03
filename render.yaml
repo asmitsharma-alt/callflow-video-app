@@ -1,0 +1,43 @@
+services:
+  # 1. Node/Express Signaling & Token API
+  - type: web
+    name: web-video-api
+    env: node
+    plan: starter
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: LIVEKIT_URL
+        sync: false
+        # e.g., wss://your-project.livekit.cloud
+      - key: LIVEKIT_API_KEY
+        sync: false
+      - key: LIVEKIT_API_SECRET
+        sync: false
+      - key: CORS_ORIGIN
+        fromService:
+          type: web
+          name: web-video-client
+          property: host
+
+  # 2. React + Vite Frontend Static Site
+  - type: web
+    name: web-video-client
+    env: static
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_API_URL
+        fromService:
+          type: web
+          name: web-video-api
+          property: host

@@ -1,0 +1,16 @@
+version: '3.9'
+
+services:
+  livekit:
+    image: livekit/livekit-server:latest
+    container_name: livekit-server
+    restart: unless-stopped
+    command: --config /etc/livekit.yaml
+    volumes:
+      - ./livekit.yaml:/etc/livekit.yaml
+    ports:
+      - "7880:7880"         # HTTP/WebSocket signaling
+      - "7881:7881"         # WebRTC TCP fallback
+      - "50000-60000:50000-60000/udp" # WebRTC UDP media traffic
+    environment:
+      - LIVEKIT_KEYS=devkey:secret

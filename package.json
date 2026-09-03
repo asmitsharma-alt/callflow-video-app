@@ -1,0 +1,15 @@
+{
+  "name": "callflow-web-video",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Browser-based video calling app built with LiveKit SFU, Express, and React",
+  "scripts": {
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "build:frontend": "cd frontend && npm run build",
+    "install:all": "npm --prefix backend install && npm --prefix frontend install"
+  },
+  "keywords": ["livekit", "webrtc", "video", "react", "express", "render"],
+  "author": "Asmit",
+  "license": "MIT"
+}
