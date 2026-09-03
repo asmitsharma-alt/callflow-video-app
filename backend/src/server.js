@@ -17,6 +17,9 @@ app.use(
       if (
         config.corsOrigin.includes('*') ||
         config.corsOrigin.includes(origin) ||
+        origin.endsWith('.vercel.app') ||
+        origin.endsWith('.onrender.com') ||
+        origin.includes('localhost') ||
         process.env.NODE_ENV !== 'production'
       ) {
         return callback(null, true);
