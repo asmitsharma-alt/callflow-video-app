@@ -3,6 +3,7 @@ dotenv.config();
 
 export const config = {
   port: parseInt(process.env.PORT || '5000', 10),
+  externalUrl: process.env.RENDER_EXTERNAL_URL || process.env.SERVER_URL || '',
   corsOrigin: process.env.CORS_ORIGIN 
     ? process.env.CORS_ORIGIN.split(',').map(o => o.trim()) 
     : ['http://localhost:5173', 'http://localhost:3000'],

@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import { config } from './config.js';
 import apiRoutes from './routes/api.js';
+import { startKeepAlive } from './services/keepAlive.js';
 
 const app = express();
 
@@ -43,6 +44,9 @@ app.use((err, req, res, next) => {
 const server = app.listen(config.port, () => {
   console.log(`🚀 LiveKit Token API running on http://localhost:${config.port}`);
   console.log(`📡 LiveKit Server Target: ${config.livekit.url}`);
+
+  // Auto keep-alive for Render free-tier
+  startKeepAlive(config.externalUrl);
 });
 
 // Graceful shutdown handling
